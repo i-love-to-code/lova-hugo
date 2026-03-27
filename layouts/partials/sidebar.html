@@ -7,7 +7,7 @@
       {{ if and .Params.Image (ne .Params.Image "") }}
       {{ $image := resources.Get .Params.Image }}
       {{ if $image }}
-        {{ partial "image.html" (dict "Src" .Params.Image "Alt" "Image" "Class" "img-fluid author-thumb-sm d-block mx-auto rounded-circle mb-4" ) }}
+        {{ partial "image.html" (dict "Src" .Params.Image "Alt" "Image" "Class" "img-fluid author-thumb-sm d-block mx-auto mb-4" ) }}
       {{ end }}
       {{ end }}
       <p>{{ .Summary | truncate 150}}</p>
@@ -16,7 +16,7 @@
     </div>
     <!-- category -->
     <div class="widget">
-      <h4 class="widget-title">Category</h4>
+      <h4 class="widget-title">Categories</h4>
       {{- if isset .Site.Taxonomies "categories" }}
       {{- if not (eq (len .Site.Taxonomies.categories) 0) }}
       <ul class="list-unstyled">
@@ -53,8 +53,8 @@
       </ul>
     </div>
     <!-- advertisement -->
-    <div class="widget">
+    {{/*  <div class="widget">
       {{ partial "image.html" (dict "Src" `images/promotion.png` "Alt" "Image" "Class" "img-fluid" ) }}
-    </div>
+    </div>  */}}
   </div>
 </div>

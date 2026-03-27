@@ -13,21 +13,25 @@
               {{ if and .Params.Image (ne .Params.Image "") }}
               {{ $image := resources.Get .Params.Image }}
               {{ if $image }}
-              {{ partial "image.html" (dict "Src" .Params.Image "Alt" .Title "Class" "card-img" ) }}
+              <a href="{{ with .Params.redirect }}{{ . | relURL }}{{ else }}{{ .Permalink }}{{ end }}">
+                {{ partial "image.html" (dict "Src" .Params.Image "Alt" .Title "Class" "card-img" ) }}
+              </a>
               {{ end }}
               {{ end }}
             </div>
             <div class="col-md-6 offset-md-1">
               <div class="card-body">
                 <div class="mb-3 post-meta">
+                  {{ if not .Params.HideAuthor }}
                   <span>By {{ .Site.Params.Author }}</span>
+                  {{ end }}
                   {{ if not .Params.HideDate }}
                   <span class="border-bottom border-primary px-2 mx-1"></span>
                   <span>{{ .PublishDate.Format "02 January 2006" }}</span>
                   {{ end }}
                 </div>
-                <a href="{{ .Permalink }}"
-                  class="h1 font-weight-bold d-block text-dark mb-4 card-title">{{ .Title | markdownify }}</a>
+                <a href="{{ with .Params.redirect }}{{ . | relURL }}{{ else }}{{ .Permalink }}{{ end }}" class="h1 font-weight-bold d-block text-dark mb-4 card-title">{{ .Title |
+                  markdownify }}</a>
                 <p class="card-text">{{.Summary | truncate 150}}</p>
               </div>
             </div>
@@ -44,7 +48,8 @@
 <section>
   <div class="container">
     <div class="row">
-      {{ range first 3 (where .Site.RegularPages "Type" "post")}}
+      {{ $featured := where (where .Site.RegularPages "Type" "post") "Params.featured" true }}
+      {{ range first 3 $featured }}
       <div class="col-lg-4 small-post-border">
         <article class="media">
           {{ if .Params.Image }}
@@ -75,7 +80,8 @@
     <div class="row">
       <div class="col-lg-8 mb-5 mb-lg-0">
         <div class="row">
-          {{ $paginator := .Paginate (where .Site.RegularPages "Type" "post") }}
+          {{ $pages := where (where (where .Site.RegularPages "Type" "post") "Params.carousel_only" "!=" true) "Params.featured" "!=" true }}
+          {{ $paginator := .Paginate $pages }}
           {{ range $paginator.Pages }}
           <div class="col-md-6 mb-4">
             <article class="card">
@@ -87,8 +93,8 @@
               {{ end }}
               <div class="card-body px-0">
                 {{ range .Params.Categories }}
-                <a href="{{ `categories/` | relLangURL }}{{ . | urlize | lower }}"
-                  class="text-primary">{{ . | title | humanize }}</a>
+                <a href="{{ `categories/` | relLangURL }}{{ . | urlize | lower }}" class="text-primary">{{ . | title |
+                  humanize }}</a>
                 {{ end }}
                 <a href="{{ .Permalink }}" class="h5 d-block my-3">{{ .Title | markdownify }}</a>
                 <div class="mb-3 post-meta">

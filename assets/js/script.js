@@ -17,26 +17,31 @@
     // featured post slider
     const featuredPostSlider = $(".featured-post-slider");
     featuredPostSlider.slick({
-      infinite: true,
-      vertical: true,
-      verticalSwiping: true,
+      infinite: false,
+      adaptiveHeight: true,
       arrows: false,
       dots: true,
       responsive: [{
         breakpoint: 600,
         settings: {
-          vertical: false,
-          verticalSwiping: false,
+          // default horizontal behavior
         }
       }]
     });
 
     featuredPostSlider.on('wheel', (function(e) {
-      e.preventDefault();
+      var slickObj = $(this).slick('getSlick');
+      
       if (e.originalEvent.deltaY > 0) {
-        $(this).slick('slickNext');
+        if (slickObj.currentSlide < slickObj.slideCount - 1) {
+          e.preventDefault();
+          $(this).slick('slickNext');
+        }
       } else {
-        $(this).slick('slickPrev');
+        if (slickObj.currentSlide > 0) {
+          e.preventDefault();
+          $(this).slick('slickPrev');
+        }
       }
     }));
 

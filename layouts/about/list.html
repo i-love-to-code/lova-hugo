@@ -7,7 +7,7 @@
         {{ if and .Params.Image (ne .Params.Image "") }}
         {{ $image := resources.Get .Params.Image }}
         {{ if $image }}
-        {{ partial "image.html" (dict "Src" .Params.Image "Alt" "Image" "Class" "img-fluid d-block mx-auto rounded-circle mb-4" ) }}
+        {{ partial "image.html" (dict "Src" .Params.Image "Alt" "Image" "Class" "img-fluid d-block mx-auto about-me-thumb mb-4" ) }}
         {{ end }}
         {{ end }}
         <h4 class="widget-title">{{ .Title | markdownify }}</h4>

@@ -15,6 +15,11 @@
 /* /card */
 
 .featured-post {
+  min-height: 411px;
+
+  .row {
+    height: 100%;
+  }
   .card-title {
     margin-left: -10%;
 
@@ -100,6 +105,31 @@
         }
       }
     }
+  }
+}
+
+.post-image-float {
+  float: right !important;
+
+  @media screen and (min-width: 992px) {
+    width: 25% !important;
+    margin-left: 30px !important;
+    margin-bottom: 20px !important;
+  }
+  @media screen and (min-width: 576px) and (max-width: 991px) {
+    width: 40% !important;
+    margin-left: 20px !important;
+    margin-bottom: 15px !important;
+  }
+  @media screen and (max-width: 575px) {
+    width: 50% !important;
+    margin-left: 15px !important;
+    margin-bottom: 10px !important;
+  }
+
+  img {
+    width: 100% !important;
+    height: auto !important;
   }
 }
 
