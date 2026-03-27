@@ -1,8 +1,8 @@
 ######################## default configuration ####################
 baseURL = "/"
 languageCode = "en-us"
-title = "Liva | Personal blog template"
-theme = "liva-hugo"
+title = "Lova | Personal blog template"
+theme = "lova-hugo"
 summaryLength = "10"
 pagination.pagerSize = 6
 disqusShortname = ""
